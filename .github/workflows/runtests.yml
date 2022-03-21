@@ -14,4 +14,6 @@ jobs:
       - name: installation 🏗
         run: npm install
       - name: test 🔬🧪
-        run: npm run test
+        run: npm run test:coverage
+      - name: send coverage 🚗
+        run: npm run push:coverage
