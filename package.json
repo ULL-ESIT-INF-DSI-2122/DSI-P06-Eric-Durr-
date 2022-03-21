@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register 'test/**/*.ts'",
     "test:coverage": "nyc mocha -r ts-node/register 'test/**/*.ts'",
-    "push:coverage": "nyc report --reporter=text-lcov | coveralls",
+    "get:coverage": "nyc report --reporter=text-lcov",
     "test:watch": "mocha --watch",
     "build": "npm test && tsc",
     "docs": " typedoc --options typedoc.json --name \"P06 -Clases e interfaces genéricas. Principios SOLID\" --includeVersion"
