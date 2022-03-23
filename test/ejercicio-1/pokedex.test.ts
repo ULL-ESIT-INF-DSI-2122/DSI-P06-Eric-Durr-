@@ -49,7 +49,7 @@ describe('PokeDex object composition by default', () => {
     expect(EricsPokedex.isEmpty()).to.be.false;
   });
   it('Pokemon can be printed', () => {
-    // EricsPokedex.print();
+    EricsPokedex.print();
   });
   it('Pokemon can be removed from the pokedex', () => {
     expect(EricsPokedex.removePokemon('pikachu')).to.be.true;

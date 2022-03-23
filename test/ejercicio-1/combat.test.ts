@@ -123,24 +123,24 @@ describe('Combat between two pokemons', () => {
   });
   it('Attacking in the combat with first pokemon should change hp in the other', () => {
     expect(pikachu.getStats()[0]).to.be.eq(400);
-    // combat.print();
+    combat.print();
     combat.attack(pikachu);
-    // combat.print();
+    combat.print();
     expect(pikachu.getStats()[0]).to.be.eq(350);
   });
 
   it('Combat between unknown pokemon should work', () => {
     expect(unknownSecond.getStats()[0]).to.be.eq(400);
-    // combaTwo.print();
+    combaTwo.print();
     combaTwo.attack(unknownSecond);
-    // combaTwo.print();
+    combaTwo.print();
     expect(unknownSecond.getStats()[0]).to.be.eq(350);
   });
 
   it('start method simulates the combat between pikachu and charmander, should return winer', () => {
-    // expect(combat.start()).to.be.eq(charmander);
+    expect(combat.start()).to.be.eq(charmander);
   });
   it('start method simulates the combat between two unknown pokemons, should return winer', () => {
-    // expect(combaTwo.start()).to.be.eq(unknownFirst);
+    expect(combaTwo.start()).to.be.eq(unknownFirst);
   });
 });
