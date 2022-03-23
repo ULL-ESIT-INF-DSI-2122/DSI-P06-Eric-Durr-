@@ -1,7 +1,10 @@
-import { PokemonType, Measures, Stats } from "./pokemon.interfaces"; // eslint-disable-line
+import { Fighter } from "./fighter.class";
+import { FighterActions, Measures, PrintableFighter, Stats } from "./fighter.interfaces"; // eslint-disable-line
+
+type PokemonType = 'fire' | 'leaf' | 'water' | 'electric' | 'normal';
 
 /**
- * # Pokemon Class | Primary parent class
+ * # Pokemon Class | Primary child class | Extends Fighter
  *
  * ## Features
  *
@@ -12,7 +15,7 @@ import { PokemonType, Measures, Stats } from "./pokemon.interfaces"; // eslint-d
  * (defines the pokemon health points (hp), attack (atk), defense
  *  (def)  and speed (spd) in that order)
  *
- * ## Methods
+ * ## Fighter Methods
  *
  * - getName(void) | Returns String with pokemon name
  * - getShape(void) | Returns Object of number with pokemon shape
@@ -20,14 +23,9 @@ import { PokemonType, Measures, Stats } from "./pokemon.interfaces"; // eslint-d
  * - getStats(void) | Returns Object of number with pokemon stats
  * - setHp(number) | Sets pokemon HP to value in parameter
  */
-export class Pokemon {
-  protected readonly name: string;
-
-  protected readonly shape: Measures;
-
-  protected readonly type: PokemonType;
-
-  protected stats: Stats;
+export class Pokemon
+  extends Fighter
+  implements FighterActions {
 
   constructor(
     name: string = '',
@@ -40,34 +38,41 @@ export class Pokemon {
       spd: 0,
     },
   ) {
-    this.name = name.toLowerCase();
-    this.shape = shape;
-    this.type = type;
-    this.stats = stats;
+    super(name, type, shape, stats);
   }
 
-  getName(): string {
-    return this.name;
-  }
+  public attack(fighter: Fighter): number {
+    return (this.getStat('atk') / (fighter.getStat('def') === 0 ? 1 : fighter.getStat('def')))
+      * (this.effectiveness(fighter));
+  };
 
-  getShape(): [number, number] {
-    return [this.shape.height, this.shape.height];
-  }
+  public effectiveness(other: Fighter): 1 | 0.5 | 2 {
+    if (this.getType() === other.getType()) { return 1; }
 
-  getType(): PokemonType {
-    return this.type;
-  }
-
-  getStats(): [number, number, number, number] {
-    return [
-      this.stats.hp,
-      this.stats.atk,
-      this.stats.def,
-      this.stats.spd,
-    ];
-  }
-
-  setHp(value: number): void {
-    this.stats.hp = value;
+    switch (this.getType()) {
+      case 'fire':
+        if (other.getType() === 'water') { return 0.5; }
+        if (other.getType() === 'leaf') { return 2; }
+        if (other.getType() === 'electric') { return 1; }
+        break;
+      case 'water':
+        if (other.getType() === 'leaf') { return 0.5; }
+        if (other.getType() === 'fire') { return 2; }
+        if (other.getType() === 'electric') { return 0.5; }
+        break;
+      case 'leaf':
+        if (other.getType() === 'fire') { return 0.5; }
+        if (other.getType() === 'water') { return 2; }
+        if (other.getType() === 'electric') { return 1; }
+        break;
+      case 'electric':
+        if (other.getType() === 'fire') { return 0.5; }
+        if (other.getType() === 'water') { return 2; }
+        if (other.getType() === 'leaf') { return 1; }
+        break;
+      default:
+        return 1;
+    }
+    return 1;
   }
 }
