@@ -31,6 +31,12 @@
 
 ## Actividades previas
 
+(cobertura de código)
+
+(actions para coveralls)
+
+(ampliar cobertura de código sin ensuciar los test de console.log (sinon JS))
+
 ## Conclusiones
 
 ## Referencias
@@ -40,6 +46,8 @@
 [SOLID principle using TypeScript - Samuele Resca](https://samueleresca.net/solid-principles-using-typescript/)
 
 [Principios SOLID - Apuntes de la asignatura](https://ull-esit-inf-dsi-2122.github.io/typescript-theory/typescript-solid.html)
+
+[SinonJS - Stubs](https://sinonjs.org/releases/latest/stubs/)
 
 ## Estructura del directorio
 
