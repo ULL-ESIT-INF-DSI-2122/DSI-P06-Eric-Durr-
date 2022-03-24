@@ -2,7 +2,9 @@ import { before, describe, it } from 'mocha';
 import { expect } from 'chai';
 
 import { Pokemon } from '../../src/ejercicio-1/pokemon.class';
+import { Marvel } from '../../src/ejercicio-1/marvel.class';
 import { PokemonPrinter } from '../../src/ejercicio-1/pokemonPrinter.class';
+import { MarvelPrinter } from '../../src/ejercicio-1/marvelPrinter.class';
 
 // Console.log silencer
 import sinon from 'sinon';
@@ -115,4 +117,50 @@ describe('Pokemon Fighter universe class implementation', () => {
 });
 
 describe('Marvel Fighter universe class implementation', () => {
+  const dummy = new Marvel();
+  const spiderman = new Marvel(
+    'spiderman',
+    'class100',
+    {height: 178, weight: 76},
+    {
+      hp: 50,
+      atk: 80,
+      def: 30,
+      spd: 25,
+    }, 
+  );
+  describe('Default marvel fighter', () => {
+    it('Should have no name', () => {
+      expect(dummy.getName()).to.be.eq('');
+    });
+    it('Should have no shape', () => {
+      expect(dummy.getShape('height')).to.be.eq(0);
+      expect(dummy.getShape('weight')).to.be.eq(0);
+    });
+    it('Should have normal type', () => {
+      expect(dummy.getType()).to.be.eq('classOne');
+    });
+    it('Should have no stats are zero', () => {
+      expect(dummy.getStat('hp')).to.be.eq(0);
+      expect(dummy.getStat('atk')).to.be.eq(0);
+      expect(dummy.getStat('def')).to.be.eq(0);
+      expect(dummy.getStat('spd')).to.be.eq(0);
+    });
+  });
+  describe('Fight between dummy and piderman', () => {
+    it('Marvel attack returns the damage applied', () => {
+      expect(spiderman.attack(dummy)).to.be.eq(160);
+      expect(dummy.attack(spiderman)).to.be.eq(0);
+    });
+    it('Marvel fighter HP can be setted to update damage', () => {
+      dummy.setStat(100)('hp');
+      dummy.setStat(dummy.getStat('hp') - spiderman.attack(dummy))('hp');
+      expect(dummy.getStat('hp')).to.be.eq(-60);
+      expect(dummy.attack(spiderman)).to.be.eq(0);
+    });
+  })
+  describe('Pokemon should be printed as expected', () => {
+    new MarvelPrinter(dummy).print();
+    new MarvelPrinter(spiderman).print();
+  })
 });

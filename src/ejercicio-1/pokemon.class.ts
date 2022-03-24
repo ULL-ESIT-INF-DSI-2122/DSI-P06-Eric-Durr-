@@ -1,7 +1,6 @@
 import { Fighter } from "./fighter.class";
-import { FighterActions, Measures, PrintableFighter, Stats } from "./fighter.interfaces"; // eslint-disable-line
-
-type PokemonType = 'fire' | 'leaf' | 'water' | 'electric' | 'normal';
+import { FighterActions } from "./fighter.interfaces"; // eslint-disable-line
+import { Measures, PokemonType, Stats } from "./fighter.types";
 
 /**
  * # Pokemon Class | Primary child class | Extends Fighter

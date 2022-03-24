@@ -1,10 +1,9 @@
-
-import { Measures, Stats, FighterActions, PrintableFighter} from "./fighter.interfaces";
+import { Measures, Stats } from "./fighter.types";
 
 export abstract class Fighter {
     protected readonly name: string;
   
-    protected readonly type: String = 'normal';
+    protected readonly type: string;
 
     protected readonly shape: Measures;
   
@@ -12,7 +11,7 @@ export abstract class Fighter {
   
     constructor(
       name: string,
-      type: String,
+      type: string,
       shape: Measures,
       stats: Stats
     ) {
@@ -24,7 +23,7 @@ export abstract class Fighter {
   
     getName(): string { return this.name; }
   
-    getType() { return this.type; }
+    getType(): string { return this.type; }
 
     getShape(measure: 'height' | 'weight'): number {
       return measure === 'height'
