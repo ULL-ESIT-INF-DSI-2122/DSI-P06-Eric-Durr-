@@ -1,4 +1,4 @@
-import { before, describe, it } from 'mocha';
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
 import { Pokemon } from '../../src/ejercicio-1/pokemon.class';
@@ -8,20 +8,20 @@ import { MarvelPrinter } from '../../src/ejercicio-1/marvelPrinter.class';
 
 // Console.log silencer
 import sinon from 'sinon';
-//sinon.stub(console, 'log');
+sinon.stub(console, 'log');
 
 describe('Pokemon Fighter universe class implementation', () => {
   const dummy = new Pokemon();
   const pikachu = new Pokemon(
     'pikachu',
     'electric',
-    {height: 40, weight: 6},
+    { height: 40, weight: 6 },
     {
       hp: 35,
       atk: 55,
       def: 40,
       spd: 90,
-    }, 
+    },
   );
   describe('Default pokemon fighter', () => {
     it('Should have no name', () => {
@@ -59,43 +59,43 @@ describe('Pokemon Fighter universe class implementation', () => {
         .effectiveness(new Pokemon('', 'normal')))
         .to.be.eq(1);
       expect(new Pokemon('', 'water')
-      .effectiveness(new Pokemon('', 'leaf')))
+        .effectiveness(new Pokemon('', 'leaf')))
         .to.be.eq(0.5);
       expect(new Pokemon('', 'water')
-      .effectiveness(new Pokemon('', 'electric')))
+        .effectiveness(new Pokemon('', 'electric')))
         .to.be.eq(0.5);
       expect(new Pokemon('', 'water')
-      .effectiveness(new Pokemon('', 'fire')))
+        .effectiveness(new Pokemon('', 'fire')))
         .to.be.eq(2);
       expect(new Pokemon('', 'water')
-      .effectiveness( new Pokemon('', 'normal')))
+        .effectiveness(new Pokemon('', 'normal')))
         .to.be.eq(1);
       expect(new Pokemon('', 'leaf')
-      .effectiveness(new Pokemon('', 'water')))
+        .effectiveness(new Pokemon('', 'water')))
         .to.be.eq(2);
       expect(new Pokemon('', 'leaf')
-      .effectiveness(new Pokemon('', 'electric')))
+        .effectiveness(new Pokemon('', 'electric')))
         .to.be.eq(1);
       expect(new Pokemon('', 'leaf')
-      .effectiveness(new Pokemon('', 'fire')))
+        .effectiveness(new Pokemon('', 'fire')))
         .to.be.eq(0.5);
       expect(new Pokemon('', 'leaf')
-      .effectiveness(new Pokemon('', 'normal')))
+        .effectiveness(new Pokemon('', 'normal')))
         .to.be.eq(1);
       expect(new Pokemon('', 'electric')
-      .effectiveness(new Pokemon('', 'leaf')))
+        .effectiveness(new Pokemon('', 'leaf')))
         .to.be.eq(1);
       expect(new Pokemon('', 'electric')
-      .effectiveness(new Pokemon('', 'water')))
+        .effectiveness(new Pokemon('', 'water')))
         .to.be.eq(2);
       expect(new Pokemon('', 'electric')
-      .effectiveness(new Pokemon('', 'fire')))
+        .effectiveness(new Pokemon('', 'fire')))
         .to.be.eq(0.5);
       expect(new Pokemon('', 'electric')
-      .effectiveness(new Pokemon('', 'normal')))
+        .effectiveness(new Pokemon('', 'normal')))
         .to.be.eq(1);
       expect(new Pokemon('', 'normal')
-      .effectiveness(new Pokemon('', 'fire')))
+        .effectiveness(new Pokemon('', 'fire')))
         .to.be.eq(1);
     });
     it('Pokemon attack returns the damage applied', () => {
@@ -108,12 +108,11 @@ describe('Pokemon Fighter universe class implementation', () => {
       expect(dummy.getStat('hp')).to.be.eq(45);
       expect(dummy.attack(pikachu)).to.be.eq(0);
     });
-  })
+  });
   describe('Pokemon should be printed as expected', () => {
     new PokemonPrinter(dummy).print();
     new PokemonPrinter(pikachu).print();
-  })
-
+  });
 });
 
 describe('Marvel Fighter universe class implementation', () => {
@@ -121,13 +120,13 @@ describe('Marvel Fighter universe class implementation', () => {
   const spiderman = new Marvel(
     'spiderman',
     'class100',
-    {height: 178, weight: 76},
+    { height: 178, weight: 76 },
     {
       hp: 50,
       atk: 80,
       def: 30,
       spd: 25,
-    }, 
+    },
   );
   describe('Default marvel fighter', () => {
     it('Should have no name', () => {
@@ -158,9 +157,9 @@ describe('Marvel Fighter universe class implementation', () => {
       expect(dummy.getStat('hp')).to.be.eq(-60);
       expect(dummy.attack(spiderman)).to.be.eq(0);
     });
-  })
+  });
   describe('Pokemon should be printed as expected', () => {
     new MarvelPrinter(dummy).print();
     new MarvelPrinter(spiderman).print();
-  })
+  });
 });

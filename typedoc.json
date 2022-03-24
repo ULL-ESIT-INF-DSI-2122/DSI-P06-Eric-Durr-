@@ -3,7 +3,9 @@
     "./src/ejercicio-1/combat.class.ts",
     "./src/ejercicio-1/pokedex.class.ts",
     "./src/ejercicio-1/pokemon.class.ts",
-    "./src/ejercicio-1/pokemon.interfaces.ts"
+    "./src/pe103/arithmeticable.interfaces.ts",
+    "./src/pe103/arithmeticableCollection.class.ts",
+    "./src/pe103/complex.class.ts"
   ],
   "out": "doc"
 }
