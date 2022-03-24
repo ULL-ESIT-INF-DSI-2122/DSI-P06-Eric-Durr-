@@ -49,6 +49,8 @@
 
 [SinonJS - Stubs](https://sinonjs.org/releases/latest/stubs/)
 
+[Super Hero Database](https://www.superherodb.com/spider-man/10-133/)
+
 ## Estructura del directorio
 
 ```txt
