@@ -11,7 +11,7 @@ describe('Combat between two pokemons', () => {
     'fire',
     { height: 5, weight: 5 },
     {
-      hp: 20,
+      hp: 40,
       atk: 10,
       def: 10,
       spd: 10,
@@ -24,8 +24,8 @@ describe('Combat between two pokemons', () => {
     'electric',
     { height: 5, weight: 5 },
     {
-      hp: 40,
-      atk: 10,
+      hp: 10,
+      atk: 5,
       def: 10,
       spd: 10,
     },
@@ -50,14 +50,14 @@ describe('Combat between two pokemons', () => {
     'electric',
     { height: 5, weight: 5 },
     {
-      hp: 40,
+      hp: 100,
       atk: 10,
       def: 10,
       spd: 10,
     },
   );
 
-  const combat: Combat = new Combat(pikachu, charmander);
+  const combat: Combat = new Combat(charmander, pikachu);
   const combaTwo: Combat = new Combat(unknownFirst, unknownSecond);
 
   it('Created Combat should include the first fighter', () => {
@@ -71,10 +71,10 @@ describe('Combat between two pokemons', () => {
   });
   
   it('start method simulates the combat between pikachu and charmander, should return winer', () => {
-    expect(combat.start()).to.be.eq(pikachu);
+    expect(combat.start()).to.be.eq(charmander);
   });
   it('start method simulates the combat between two unknown pokemons, should return winer', () => {
-    expect(combaTwo.start()).to.be.eq(unknownFirst);
+    expect(combaTwo.start()).to.be.eq(unknownSecond);
   });
 
 });

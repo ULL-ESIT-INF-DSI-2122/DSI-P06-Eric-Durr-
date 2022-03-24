@@ -76,14 +76,11 @@ export class Combat implements FighterPrint {
        && this.secondFighter.getStat('hp') > 0) {
       console.log(`COMBAT ROUND: ${i}`);
       console.log(`${this.firstFighter.getName()} attaks ${this.secondFighter.getName()}`);
-      if (this.firstFighter.getStat('hp') > 0
-      && this.secondFighter.getStat('hp') > 0) {
         this.firstFighter.speak();
         this.secondFighter
           .setStat(
             this.secondFighter.getStat('hp') - this.firstFighter.attack(this.secondFighter)
           )('hp');
-      }
       this.print();
       console.log(`${this.secondFighter.getName()} attaks ${this.firstFighter.getName()}`);
       if (this.firstFighter.getStat('hp') > 0
