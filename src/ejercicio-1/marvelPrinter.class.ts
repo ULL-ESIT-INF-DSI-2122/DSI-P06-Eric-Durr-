@@ -1,7 +1,7 @@
-import { PrintableFighter } from "./fighter.interfaces";
+import { FighterPrint } from "./fighter.interfaces";
 import { Marvel } from "./marvel.class";
 
-export class MarvelPrinter implements PrintableFighter {
+export class MarvelPrinter implements FighterPrint {
 
   constructor(private readonly character: Marvel) {}
 

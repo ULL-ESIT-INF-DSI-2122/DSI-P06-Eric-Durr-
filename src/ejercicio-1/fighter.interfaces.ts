@@ -4,7 +4,7 @@ import { Fighter } from './fighter.class';
  * # Pokemon Print | interface
  * used to make a class print it's pokemons
  */
-interface PrintableFighter {
+interface FighterPrint {
   print(): void;
 }
 
@@ -19,6 +19,6 @@ interface FighterActions {
 }
 
 export {
-  PrintableFighter,
+  FighterPrint,
   FighterActions,
 };

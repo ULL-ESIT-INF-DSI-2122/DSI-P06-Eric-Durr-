@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 
-import { PrintableFighter } from "./fighter.interfaces";
+import { FighterPrint } from "./fighter.interfaces";
 import { Pokemon } from "./pokemon.class";
 
-export class PokemonPrinter implements PrintableFighter {
+export class PokemonPrinter implements FighterPrint {
 
   constructor(private readonly pokemon: Pokemon) {}
 

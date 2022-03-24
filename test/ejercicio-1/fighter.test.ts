@@ -7,13 +7,14 @@ import { PokemonPrinter } from '../../src/ejercicio-1/pokemonPrinter.class';
 import { MarvelPrinter } from '../../src/ejercicio-1/marvelPrinter.class';
 
 // Console.log silencer
-import sinon from 'sinon';
-sinon.stub(console, 'log');
+// import sinon from 'sinon';
+// sinon.stub(console, 'log');
 
 describe('Pokemon Fighter universe class implementation', () => {
   const dummy = new Pokemon();
   const pikachu = new Pokemon(
     'pikachu',
+    'Pikaaaaa!',
     'electric',
     { height: 40, weight: 6 },
     {
@@ -43,59 +44,59 @@ describe('Pokemon Fighter universe class implementation', () => {
   });
   describe('Pokemon can intercat by itself', () => {
     it('Pokemon effectiveness can know the effectiveness for every type', () => {
-      expect(new Pokemon('', 'fire')
-        .effectiveness(new Pokemon('', 'fire')))
+      expect(new Pokemon('', '', 'fire')
+        .effectiveness(new Pokemon('', '', 'fire')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'fire')
-        .effectiveness(new Pokemon('', 'leaf')))
+      expect(new Pokemon('', '', 'fire')
+        .effectiveness(new Pokemon('', '', 'leaf')))
         .to.be.eq(2);
-      expect(new Pokemon('', 'fire')
-        .effectiveness(new Pokemon('', 'water')))
+      expect(new Pokemon('', '', 'fire')
+        .effectiveness(new Pokemon('', '', 'water')))
         .to.be.eq(0.5);
-      expect(new Pokemon('', 'fire')
-        .effectiveness(new Pokemon('', 'electric')))
+      expect(new Pokemon('', '', 'fire')
+        .effectiveness(new Pokemon('', '', 'electric')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'fire')
-        .effectiveness(new Pokemon('', 'normal')))
+      expect(new Pokemon('', '', 'fire')
+        .effectiveness(new Pokemon('', '', 'normal')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'water')
-        .effectiveness(new Pokemon('', 'leaf')))
+      expect(new Pokemon('', '', 'water')
+        .effectiveness(new Pokemon('', '', 'leaf')))
         .to.be.eq(0.5);
-      expect(new Pokemon('', 'water')
-        .effectiveness(new Pokemon('', 'electric')))
+      expect(new Pokemon('', '', 'water')
+        .effectiveness(new Pokemon('', '', 'electric')))
         .to.be.eq(0.5);
-      expect(new Pokemon('', 'water')
-        .effectiveness(new Pokemon('', 'fire')))
+      expect(new Pokemon('', '', 'water')
+        .effectiveness(new Pokemon('', '', 'fire')))
         .to.be.eq(2);
-      expect(new Pokemon('', 'water')
-        .effectiveness(new Pokemon('', 'normal')))
+      expect(new Pokemon('', '', 'water')
+        .effectiveness(new Pokemon('', '', 'normal')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'leaf')
-        .effectiveness(new Pokemon('', 'water')))
+      expect(new Pokemon('', '', 'leaf')
+        .effectiveness(new Pokemon('', '', 'water')))
         .to.be.eq(2);
-      expect(new Pokemon('', 'leaf')
-        .effectiveness(new Pokemon('', 'electric')))
+      expect(new Pokemon('', '', 'leaf')
+        .effectiveness(new Pokemon('', '', 'electric')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'leaf')
-        .effectiveness(new Pokemon('', 'fire')))
+      expect(new Pokemon('', '', 'leaf')
+        .effectiveness(new Pokemon('', '', 'fire')))
         .to.be.eq(0.5);
-      expect(new Pokemon('', 'leaf')
-        .effectiveness(new Pokemon('', 'normal')))
+      expect(new Pokemon('', '', 'leaf')
+        .effectiveness(new Pokemon('', '', 'normal')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'electric')
-        .effectiveness(new Pokemon('', 'leaf')))
+      expect(new Pokemon('', '', 'electric')
+        .effectiveness(new Pokemon('', '', 'leaf')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'electric')
-        .effectiveness(new Pokemon('', 'water')))
+      expect(new Pokemon('', '', 'electric')
+        .effectiveness(new Pokemon('', '', 'water')))
         .to.be.eq(2);
-      expect(new Pokemon('', 'electric')
-        .effectiveness(new Pokemon('', 'fire')))
+      expect(new Pokemon('', '', 'electric')
+        .effectiveness(new Pokemon('', '', 'fire')))
         .to.be.eq(0.5);
-      expect(new Pokemon('', 'electric')
-        .effectiveness(new Pokemon('', 'normal')))
+      expect(new Pokemon('', '', 'electric')
+        .effectiveness(new Pokemon('', '', 'normal')))
         .to.be.eq(1);
-      expect(new Pokemon('', 'normal')
-        .effectiveness(new Pokemon('', 'fire')))
+      expect(new Pokemon('', '', 'normal')
+        .effectiveness(new Pokemon('', '', 'fire')))
         .to.be.eq(1);
     });
     it('Pokemon attack returns the damage applied', () => {
@@ -119,6 +120,7 @@ describe('Marvel Fighter universe class implementation', () => {
   const dummy = new Marvel();
   const spiderman = new Marvel(
     'spiderman',
+    'With great power, there must also come great responsibility',
     'class100',
     { height: 178, weight: 76 },
     {

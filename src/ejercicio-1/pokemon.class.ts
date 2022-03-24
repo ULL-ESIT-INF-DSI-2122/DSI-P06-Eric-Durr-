@@ -28,6 +28,7 @@ export class Pokemon
 
   constructor(
     name: string = '',
+    catchingPhrase: string = '',
     type: PokemonType = 'normal',
     shape: Measures = { height: 0, weight: 0 },
     stats: Stats = {
@@ -37,13 +38,8 @@ export class Pokemon
       spd: 0,
     },
   ) {
-    super(name, type, shape, stats);
+    super(name, catchingPhrase, type, shape, stats);
   }
-
-  public attack(fighter: Fighter): number {
-    return (this.getStat('atk') / (fighter.getStat('def') === 0 ? 1 : fighter.getStat('def')))
-      * (this.effectiveness(fighter));
-  };
 
   public effectiveness(other: Fighter): 1 | 0.5 | 2 {
     if (this.getType() === other.getType()) { return 1; }
