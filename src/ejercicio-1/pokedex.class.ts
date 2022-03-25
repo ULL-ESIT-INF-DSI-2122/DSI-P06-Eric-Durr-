@@ -1,6 +1,5 @@
 import * as fs from 'fs';
-import { Pokemon } from './pokemon.class'; // eslint-disable-line
-import { PrintableFighter } from './fighter.interfaces'; // eslint-disable-line
+import { Fighter } from './fighter.class';
 
 /**
  * # Pokedex Class | Primary parent class
@@ -20,6 +19,33 @@ import { PrintableFighter } from './fighter.interfaces'; // eslint-disable-line
  * - addPokemon(Pokemon) | inserts a pokemon in the list if it's not registered
  * - removePokemon(String) | removes a pokemon from the list by it's name if it's registered
  */
-export class PokeDex {
- // 
+export class PokeDex{
+  private list: Fighter[];
+
+  constructor(list: Fighter[] = []) {
+    this.list = list;
+  }
+
+  isEmpty(): boolean {
+    return this.list.length === 0;
+  }
+
+  addFighter(newFighter: Fighter): boolean {
+    if (this.list.includes(newFighter)) { return false; }
+    this.list.push(newFighter);
+    return true;
+  }
+
+  removeFighter(name: string): boolean {
+    if (this.list.filter((el) => el.getName() === name.toLowerCase()).length === 0) {
+      return false;
+    }
+    this.list = this.list
+      .filter((el) => el.getName() !== name.toLowerCase());
+    return true;
+  }
+  getFighter(name: string): Fighter | undefined{
+    return this.list.find((el) => el.getName() == name);
+  }
+  getList(): Fighter[] { return this.list; }
 }
