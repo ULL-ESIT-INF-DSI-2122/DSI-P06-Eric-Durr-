@@ -5,7 +5,7 @@ import { Pokemon } from '../../src/ejercicio-1/pokemon.class'; // eslint-disable
 import { Marvel } from '../../src/ejercicio-1/marvel.class'; // eslint-disable-line
 import Sinon from 'sinon';
 
-Sinon.stub(console, 'log');
+//Sinon.stub(console, 'log');
 
 const charmander: Pokemon = new Pokemon(
   'charmander',
