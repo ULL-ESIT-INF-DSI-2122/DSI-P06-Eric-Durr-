@@ -6,8 +6,7 @@ import { Marvel } from '../../src/ejercicio-1/marvel.class';
 import { PokeDex } from '../../src/ejercicio-1/pokedex.class'; // eslint-disable-line
 import { PokedexPrinter } from '../../src/ejercicio-1/pokedexPrinter.class'; // eslint-disable-line
 
-// this line avoids console logs from tests but allow to use them in the tests
-sinon.stub(console, 'log');
+
 
 describe('PokeDex object composition by default', () => {
   const EricsPokedex: PokeDex = new PokeDex();

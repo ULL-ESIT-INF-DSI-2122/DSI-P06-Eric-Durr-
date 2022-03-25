@@ -6,9 +6,7 @@ import { Marvel } from '../../src/ejercicio-1/marvel.class';
 import { PokemonPrinter } from '../../src/ejercicio-1/pokemonPrinter.class';
 import { MarvelPrinter } from '../../src/ejercicio-1/marvelPrinter.class';
 
-// Console.log silencer
-// import sinon from 'sinon';
-// sinon.stub(console, 'log');
+
 
 describe('Pokemon Fighter universe class implementation', () => {
   const dummy = new Pokemon();
