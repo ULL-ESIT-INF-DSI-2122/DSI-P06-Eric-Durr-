@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { Fighter } from './fighter.class';
 
 /**
@@ -19,7 +18,7 @@ import { Fighter } from './fighter.class';
  * - addPokemon(Pokemon) | inserts a pokemon in the list if it's not registered
  * - removePokemon(String) | removes a pokemon from the list by it's name if it's registered
  */
-export class PokeDex{
+export class PokeDex {
   private list: Fighter[];
 
   constructor(list: Fighter[] = []) {
@@ -44,8 +43,10 @@ export class PokeDex{
       .filter((el) => el.getName() !== name.toLowerCase());
     return true;
   }
-  getFighter(name: string): Fighter | undefined{
-    return this.list.find((el) => el.getName() == name);
+
+  getFighter(name: string): Fighter | undefined {
+    return this.list.find((el) => el.getName() === name);
   }
+
   getList(): Fighter[] { return this.list; }
 }

@@ -1,16 +1,16 @@
-import { StreamableProperties, StreamableActions, StreamableSearch } from "./streamable.interface";
-import { StreamableItem } from "./streamableItem.class";
+import { StreamableProperties, StreamableActions, StreamableSearch } from './streamable.interface';
+import { StreamableItem } from './streamableItem.class';
 
-export abstract class StreamableCollection<T extends StreamableItem>
-  implements
+export abstract class StreamableCollection<T extends StreamableItem> implements
     StreamableProperties<T>,
     StreamableActions<T>,
-    StreamableSearch<T>
-{
+    StreamableSearch<T> {
   protected list: T[];
+
   protected views: number;
+
   protected likes: number;
-  
+
   constructor(list: T[] = []) {
     this.list = list;
     this.views = 0;
@@ -27,7 +27,7 @@ export abstract class StreamableCollection<T extends StreamableItem>
   }
 
   numberOfItems(): number {
-      return this.list.length;
+    return this.list.length;
   }
 
   // Actions
@@ -39,7 +39,7 @@ export abstract class StreamableCollection<T extends StreamableItem>
     this.list.push(item);
     return true;
   }
-  
+
   removeItem(item: T): boolean {
     if (!this.list.includes(item)) {
       return false;
@@ -49,45 +49,43 @@ export abstract class StreamableCollection<T extends StreamableItem>
   }
 
   // Search
-  selectByName(name: string): T | undefined{
-      return this.list.find((el) => el.getName() === name );
+  selectByName(name: string): T | undefined {
+    return this.list.find((el) => el.getName() === name);
   }
 
   selectByDuration(duration: number): T | T[] | undefined {
-    const result: T[] = this.list.filter((el) => el.getDuration() === duration);  
+    const result: T[] = this.list.filter((el) => el.getDuration() === duration);
     return result.length === 0
       ? undefined
       : result.length === 1
-      ? result[0]
-      : result;
+        ? result[0]
+        : result;
   }
-  
+
   selectByRelease(release: string): T | T[] | undefined {
-    const result: T[] = this.list.filter((el) => el.getRelease() === release);  
+    const result: T[] = this.list.filter((el) => el.getRelease() === release);
     return result.length === 0
       ? undefined
       : result.length === 1
-      ? result[0]
-      : result;
+        ? result[0]
+        : result;
   }
-  
+
   selectByGendre(gendre: string): T | T[] | undefined {
-    const result: T[] = this.list.filter((el) => el.getGendres().includes(gendre));  
+    const result: T[] = this.list.filter((el) => el.getGendres().includes(gendre));
     return result.length === 0
       ? undefined
       : result.length === 1
-      ? result[0]
-      : result;
+        ? result[0]
+        : result;
   }
 
   selectByRating(rating: number): T | T[] | undefined {
-    const result: T[] = this.list.filter((el) => el.getRating() === rating);  
+    const result: T[] = this.list.filter((el) => el.getRating() === rating);
     return result.length === 0
       ? undefined
       : result.length === 1
-      ? result[0]
-      : result;
+        ? result[0]
+        : result;
   }
-
-  
 }

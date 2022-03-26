@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { Fighter } from './fighter.class';
 import { FighterPrint } from './fighter.interfaces'; // eslint-disable-line
 
@@ -23,6 +22,7 @@ import { FighterPrint } from './fighter.interfaces'; // eslint-disable-line
  */
 export class Combat implements FighterPrint {
   private firstFighter: Fighter;
+
   private secondFighter: Fighter;
 
   constructor(firstFighter: Fighter, secondFighter: Fighter) {
@@ -37,36 +37,36 @@ export class Combat implements FighterPrint {
 
     // Second fighter
     console.log(`\tFirst fighter | ${this.firstFighter.getName().toUpperCase()}`);
-      
-    console.log(`\nHP: ${this.firstFighter.getStat('hp')} \t\t| ` +
-                `${'█'.repeat(this.firstFighter.getStat('hp'))}` +
-                `${'_'.repeat(100 - this.firstFighter.getStat('hp'))}`);
-    console.log(`ATTACK: ${this.firstFighter.getStat('atk')} \t| ` +
-                `${'█'.repeat(this.firstFighter.getStat('atk'))}` +
-                `${'_'.repeat(100 - this.firstFighter.getStat('atk'))}`);
-    console.log(`DEFENSE: ${this.firstFighter.getStat('def')} \t| ` +
-                `${'█'.repeat(this.firstFighter.getStat('def'))}` +
-                `${'_'.repeat(100 - this.firstFighter.getStat('def'))}`);
-    console.log(`SPEED: ${this.firstFighter.getStat('spd')} \t| ` +
-                `${'█'.repeat(this.firstFighter.getStat('spd'))}` +
-                `${'_'.repeat(100 - this.firstFighter.getStat('spd'))}\n\n`);
-                
+
+    console.log(`\nHP: ${this.firstFighter.getStat('hp')} \t\t| `
+              + `${'█'.repeat(this.firstFighter.getStat('hp'))}`
+              + `${'_'.repeat(100 - this.firstFighter.getStat('hp'))}`);
+    console.log(`ATTACK: ${this.firstFighter.getStat('atk')} \t| `
+              + `${'█'.repeat(this.firstFighter.getStat('atk'))}`
+              + `${'_'.repeat(100 - this.firstFighter.getStat('atk'))}`);
+    console.log(`DEFENSE: ${this.firstFighter.getStat('def')} \t| `
+              + `${'█'.repeat(this.firstFighter.getStat('def'))}`
+              + `${'_'.repeat(100 - this.firstFighter.getStat('def'))}`);
+    console.log(`SPEED: ${this.firstFighter.getStat('spd')} \t| `
+              + `${'█'.repeat(this.firstFighter.getStat('spd'))}`
+              + `${'_'.repeat(100 - this.firstFighter.getStat('spd'))}\n\n`);
+
     console.log('\t\t\n----------------------------------------------\n');
 
     // Second fighter
     console.log(`\tSecond fighter | ${this.secondFighter.getName().toUpperCase()}`);
-    console.log(`\nHP: ${this.secondFighter.getStat('hp')} \t\t| ` +
-                `${'█'.repeat(this.secondFighter.getStat('hp'))}` +
-                `${'_'.repeat(100 - this.secondFighter.getStat('hp'))}`);
-    console.log(`ATTACK: ${this.secondFighter.getStat('atk')} \t| ` +
-                `${'█'.repeat(this.secondFighter.getStat('atk'))}` +
-                `${'_'.repeat(100 - this.secondFighter.getStat('atk'))}`);
-    console.log(`DEFENSE: ${this.secondFighter.getStat('def')} \t| ` +
-                `${'█'.repeat(this.secondFighter.getStat('def'))}` +
-                `${'_'.repeat(100 - this.secondFighter.getStat('def'))}`);
-    console.log(`SPEED: ${this.secondFighter.getStat('spd')} \t| ` +
-                `${'█'.repeat(this.secondFighter.getStat('spd'))}` +
-                `${'_'.repeat(100 - this.secondFighter.getStat('spd'))}\n\n`);
+    console.log(`\nHP: ${this.secondFighter.getStat('hp')} \t\t| `
+              + `${'█'.repeat(this.secondFighter.getStat('hp'))}`
+              + `${'_'.repeat(100 - this.secondFighter.getStat('hp'))}`);
+    console.log(`ATTACK: ${this.secondFighter.getStat('atk')} \t| `
+              + `${'█'.repeat(this.secondFighter.getStat('atk'))}`
+              + `${'_'.repeat(100 - this.secondFighter.getStat('atk'))}`);
+    console.log(`DEFENSE: ${this.secondFighter.getStat('def')} \t| `
+              + `${'█'.repeat(this.secondFighter.getStat('def'))}`
+              + `${'_'.repeat(100 - this.secondFighter.getStat('def'))}`);
+    console.log(`SPEED: ${this.secondFighter.getStat('spd')} \t| `
+              + `${'█'.repeat(this.secondFighter.getStat('spd'))}`
+              + `${'_'.repeat(100 - this.secondFighter.getStat('spd'))}\n\n`);
     console.log('\t__________________________________________________________________________________________\n');
   }
 
@@ -76,11 +76,11 @@ export class Combat implements FighterPrint {
        && this.secondFighter.getStat('hp') > 0) {
       console.log(`COMBAT ROUND: ${i}`);
       console.log(`${this.firstFighter.getName()} attaks ${this.secondFighter.getName()}`);
-        this.firstFighter.speak();
-        this.secondFighter
-          .setStat(
-            this.secondFighter.getStat('hp') - this.firstFighter.attack(this.secondFighter)
-          )('hp');
+      this.firstFighter.speak();
+      this.secondFighter
+        .setStat(
+          this.secondFighter.getStat('hp') - this.firstFighter.attack(this.secondFighter),
+        )('hp');
       this.print();
       console.log(`${this.secondFighter.getName()} attaks ${this.firstFighter.getName()}`);
       if (this.firstFighter.getStat('hp') > 0
@@ -88,7 +88,7 @@ export class Combat implements FighterPrint {
         this.secondFighter.speak();
         this.firstFighter
           .setStat(
-            this.firstFighter.getStat('hp') - this.secondFighter.attack(this.firstFighter)
+            this.firstFighter.getStat('hp') - this.secondFighter.attack(this.firstFighter),
           )('hp');
       }
       this.print();

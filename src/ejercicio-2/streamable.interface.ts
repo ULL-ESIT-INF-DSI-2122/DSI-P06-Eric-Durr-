@@ -1,5 +1,6 @@
-import { SeriesItem } from "./seriesItem.class";
+import { SeriesItem } from './seriesItem.class';
 
+/* eslint-disable */
 interface StreamableProperties<T> {
   totalDuration(): number;
   averageRating(): number;
@@ -11,14 +12,13 @@ interface StreamableActions<T> {
   removeItem(item: T): boolean;
 }
 
-
 interface StreamablePrint<T> {
   print(): void;
 }
 
 interface StreamableSearch<T> {
   selectByName(name: string): T | undefined;
-  selectBySimilarWord?(name: string):  T[] | undefined;
+  selectBySimilarWord?(name: string): T[] | undefined;
   selectByDuration(duration: number): T[] | T | undefined;
   selectByRelease(release: string): T[] | T | undefined;
   selectByMinDuration?(duration: number): T[] | T | undefined;
@@ -42,3 +42,5 @@ export {
   StreamablePrint,
   SeriesSearch,
 };
+
+/* eslint-enable */

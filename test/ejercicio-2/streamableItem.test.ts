@@ -5,11 +5,8 @@ import { MovieItem } from '../../src/ejercicio-2/movieItem.class';
 import { SeriesItem } from '../../src/ejercicio-2/seriesItem.class';
 import { DocumentaryItem } from '../../src/ejercicio-2/documentaryItem.class';
 
-
 describe('Tests for single streamableItems of all three kind (Series, Movies, Documentaries)', () => {
-
   describe('Series item properties:', () => {
-
     const peakyBlinders = new SeriesItem(
       'Peaky Blinders',
       '2013',
@@ -28,7 +25,6 @@ describe('Tests for single streamableItems of all three kind (Series, Movies, Do
       208,
       '2014',
     );
-
 
     it('Series item name is readable', () => {
       expect(peakyBlinders.getName()).to.be.eq('Peaky Blinders');
@@ -66,24 +62,23 @@ describe('Tests for single streamableItems of all three kind (Series, Movies, Do
     });
     it('Series can be turned to string', () => {
       expect(peakyBlinders.toString()).to.be.eq(
-        'Peaky Blinders (on emision) | TV Series | 2013- | 60m/episode | 36 episodes\n' +
-        '┌─────┐ ┌─────┐ \n' +
-        '│crime│ │drama│ \n' +
-        '└─────┘ └─────┘ \n' +
-        '8.8/10\n'
+        'Peaky Blinders (on emision) | TV Series | 2013- | 60m/episode | 36 episodes\n'
+        + '┌─────┐ ┌─────┐ \n'
+        + '│crime│ │drama│ \n'
+        + '└─────┘ └─────┘ \n'
+        + '8.8/10\n',
       );
       expect(howIMetYourM.toString()).to.be.eq(
-        'How I Met Your Mother (finished) | TV Series | 2005-2014 | 22m/episode | 208 episodes\n' +
-        '┌──────┐ ┌───────┐ \n' +
-        '│comedy│ │romance│ \n' +
-        '└──────┘ └───────┘ \n' +
-        '8.4/10\n'
+        'How I Met Your Mother (finished) | TV Series | 2005-2014 | 22m/episode | 208 episodes\n'
+        + '┌──────┐ ┌───────┐ \n'
+        + '│comedy│ │romance│ \n'
+        + '└──────┘ └───────┘ \n'
+        + '8.4/10\n',
       );
     });
   });
 
   describe('Movies item properties:', () => {
-
     const godFather = new MovieItem(
       'The Godfather',
       '1972',
@@ -109,11 +104,11 @@ describe('Tests for single streamableItems of all three kind (Series, Movies, Do
     });
     it('Movie can be turned to string', () => {
       expect(godFather.toString()).to.be.eq(
-        'The Godfather | Film | 1972 | 175m \n' +
-        '┌─────┐ ┌─────┐ \n' +
-        '│crime│ │drama│ \n' +
-        '└─────┘ └─────┘ \n' +
-        '9.2/10\n'
+        'The Godfather | Film | 1972 | 175m \n'
+        + '┌─────┐ ┌─────┐ \n'
+        + '│crime│ │drama│ \n'
+        + '└─────┘ └─────┘ \n'
+        + '9.2/10\n',
       );
     });
   });
@@ -139,11 +134,11 @@ describe('Tests for single streamableItems of all three kind (Series, Movies, Do
     });
     it('Documentary can be turned to string', () => {
       expect(cruise.toString()).to.be.eq(
-        'The Cruise | Documentary | 1998 | 76m \n' +
-        '┌───────────┐ \n' +
-        '│documentary│ \n' +
-        '└───────────┘ \n' +
-        '7.6/10\n'
+        'The Cruise | Documentary | 1998 | 76m \n'
+        + '┌───────────┐ \n'
+        + '│documentary│ \n'
+        + '└───────────┘ \n'
+        + '7.6/10\n',
       );
     });
   });

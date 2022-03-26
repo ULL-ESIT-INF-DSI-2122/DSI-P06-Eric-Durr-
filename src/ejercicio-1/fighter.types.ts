@@ -1,4 +1,3 @@
-
 /**
  * # Custom type Measures
  * Object of numbers { weight, height }

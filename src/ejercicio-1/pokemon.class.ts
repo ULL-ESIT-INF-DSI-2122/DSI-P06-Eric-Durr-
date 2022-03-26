@@ -1,6 +1,6 @@
-import { Fighter } from "./fighter.class";
-import { FighterActions } from "./fighter.interfaces"; // eslint-disable-line
-import { Measures, PokemonType, Stats } from "./fighter.types";
+import { Fighter } from './fighter.class';
+import { FighterActions } from './fighter.interfaces';
+import { Measures, PokemonType, Stats } from './fighter.types';
 
 /**
  * # Pokemon Class | Primary child class | Extends Fighter
@@ -25,7 +25,6 @@ import { Measures, PokemonType, Stats } from "./fighter.types";
 export class Pokemon
   extends Fighter
   implements FighterActions {
-
   constructor(
     name: string = '',
     catchingPhrase: string = '',

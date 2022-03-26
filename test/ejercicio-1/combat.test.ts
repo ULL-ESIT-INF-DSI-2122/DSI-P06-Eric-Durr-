@@ -1,9 +1,9 @@
+import Sinon from 'sinon';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { Combat } from '../../src/ejercicio-1/combat.class'; // eslint-disable-line
-import { Pokemon } from '../../src/ejercicio-1/pokemon.class'; // eslint-disable-line
-import { Marvel } from '../../src/ejercicio-1/marvel.class'; // eslint-disable-line
-import Sinon from 'sinon';
+import { Combat } from '../../src/ejercicio-1/combat.class';
+import { Pokemon } from '../../src/ejercicio-1/pokemon.class';
+import { Marvel } from '../../src/ejercicio-1/marvel.class';
 
 Sinon.stub(console, 'log');
 
@@ -78,9 +78,7 @@ const combaTwo: Combat = new Combat(unknownFirst, unknownSecond);
 const marvelCombat: Combat = new Combat(dummy, spiderman);
 const mixedCombat: Combat = new Combat(dummy, pikachu);
 describe('Combat class tests', () => {
-
   describe('Combat between two pokemons', () => {
-
     it('Created Combat should include the first fighter', () => {
       expect('firstFighter' in combat).to.be.true;
     });
@@ -90,14 +88,13 @@ describe('Combat class tests', () => {
     it('Created Combat should implement a PokemonPrint interface', () => {
       expect('print' in combat).to.be.true;
     });
-    
+
     it('start method simulates the combat between pikachu and charmander, should return winer', () => {
       expect(combat.start()).to.be.eq(charmander);
     });
     it('start method simulates the combat between two unknown pokemons, should return winer', () => {
       expect(combaTwo.start()).to.be.eq(unknownSecond);
     });
-
   });
 
   describe('Combat between two marvel characters', () => {
@@ -109,6 +106,6 @@ describe('Combat class tests', () => {
   describe('Mixed combat', () => {
     it('start method simulates the combat between pikachu and charmander, should return winer', () => {
       expect(mixedCombat.start()).to.be.eq(pikachu);
-    });  
+    });
   });
 });

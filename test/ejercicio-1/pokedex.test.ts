@@ -1,12 +1,9 @@
-import sinon from 'sinon';
-import { describe, before, after} from 'mocha';
+import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { Pokemon } from '../../src/ejercicio-1/pokemon.class'; // eslint-disable-line
+import { Pokemon } from '../../src/ejercicio-1/pokemon.class';
 import { Marvel } from '../../src/ejercicio-1/marvel.class';
-import { PokeDex } from '../../src/ejercicio-1/pokedex.class'; // eslint-disable-line
-import { PokedexPrinter } from '../../src/ejercicio-1/pokedexPrinter.class'; // eslint-disable-line
-
-
+import { PokeDex } from '../../src/ejercicio-1/pokedex.class';
+import { PokedexPrinter } from '../../src/ejercicio-1/pokedexPrinter.class';
 
 describe('PokeDex object composition by default', () => {
   const EricsPokedex: PokeDex = new PokeDex();
