@@ -27,8 +27,6 @@
     - [DSIFlix](#dsiflix)
     - [Jerarquía de clases - ejercicio 2](#jerarquía-de-clases---ejercicio-2)
     - [principio SOLID de Interface segregation](#principio-solid-de-interface-segregation)
-    - [Clase Streamable collection](#clase-streamable-collection)
-    - [Métodos de búsqueda](#métodos-de-búsqueda)
   - [Ejercicio 3](#ejercicio-3)
     - [El cifrado indescifrable](#el-cifrado-indescifrable)
     - [Jerarquía de clases - ejercicio 3](#jerarquía-de-clases---ejercicio-3)
@@ -220,11 +218,58 @@ A través del catálogo de dicha plataforma se puede acceder a películas, serie
 
 ### Jerarquía de clases - ejercicio 2
 
+Surgen dos nexos principales de jerarquías, uno de ellos describe los elementos que incluirán cada una de las colecciones disponibles en el sistma. Las implementaciones concretas de los elementos de las colecciones se implementan extendiendo una clase abstracta que recoge las propiedades y métodos comunes al resto de los elementos (nombre, duración, valoración, etc.). Las implementaciones concretas inlcuyen aspectos que son relativos sólo a ese tipo de contenido, como los capitulos de una serie o el método `toString()` que es abstracto en la clase padre para que cada elemento lo implemente en función del tipo de contenido que representa.
+
+Estos últimos aspectos pretenden justificar los principios SOLID de Single responsibility y Open-closed.
+
+```txt
+                    ┌──────────┐
+                  ┌─│MovieItem │
+                  │ └──────────┘
+┌───────────────┐ │ ┌──────────┐
+│StreamableItem │─┼─│SeriesItem│
+└───────────────┘ │ └──────────┘
+                  │ ┌───────────────┐
+                  └─│DocumentaryItem│
+                    └───────────────┘
+                          ┌──────┐
+                        ┌─│Movies│
+                        │ └──────┘
+┌─────────────────────┐ │ ┌──────┐
+│StreamableCollection │─┼─│Series│
+└─────────────────────┘ │ └──────┘
+                        │ ┌─────────────┐
+                        └─│Documentaries│
+                          └─────────────┘
+```
+
+En este caso, a demás de la herencia de clases, las clases de colecciones son genéricas por lo que las interfaces también deben serlo. Para controlar los tipos de datos y operaciones que se incluyen en las clases se usa la restricción de la variable de tipo genérico. Haciendo uso de la sentencia `<T extends StreamableItem>` en la clase StreamableCollection se limita a elementos de este tipo la instancia de esta clase. 
+
+Es en cada una de las implementaciones concretas de la clase StreamableCollection (Series, Movies y Documentaries) donde se especifica el tipo de dato al extender la clase padre, por ejemplo, la cabecera de la clase **Series**:
+
+```TypeScript
+
+export class Series extends StreamableCollection<SeriesItem> 
+                    implements SeriesSearch<SeriesItem> {
+                      · · ·
+}
+```
+
+De esta manera, al instanciar una clase Series lo que se hace es instanciar una clase StreamableCollection concretando el tipo de dato, cosa que ocurre para las otras dos colecciones también.
+
 ### principio SOLID de Interface segregation
 
-### Clase Streamable collection
+Se propone en el enunciado que se incluya una interfaz Streamable que defina las propiedades y métodos de búsqueda, sin embargo el principio de interface segregation sugiere que una interfaz se ocupe de describir un aspecto concreto. Si la complejidad de una interfaz escala demasiado siempre será mejor separarla en múltiples interfaces. Por eso, en este ejercicio se describen las interfaces:
 
-### Métodos de búsqueda
+- StreamableProperties: **Define los atributos que debe ser capaz de describir una clase StreamableCollection**
+
+- StreamableActions: **Define los métodos con los que debe contar una clase StreamableCollection**
+
+- StreamableSearch: **Define exclusivamente los métodos de búsqueda con los que debe contar una clase StreamableCollection**
+
+- StreamablePrint: **Define el método print que obliga a una clase a ser una clase de impresión por pantalla de colecciones de StreamableItem**
+
+- SeriesSearch: **Define exclusivamente los métodos de búsqueda con los que debe contar una clase Series**
 
 ## Ejercicio 3
 
