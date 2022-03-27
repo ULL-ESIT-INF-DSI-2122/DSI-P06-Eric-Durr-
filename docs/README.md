@@ -67,7 +67,7 @@ Para poder hacer uso de coveralls es necesario vincular la cuenta de Github a la
     github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Sin embargo, es necesario disponer en el repositorio, en el momento de la ejecución de esa línea, de una carpeta **coverage** que incluya el cubrimiento de código generado con ***nyc*** en un formato **lcov**. Para cubrir estas necesidades se ejecutan otras Actions previas a esa que permiten generar los datos en formato **lcov** y ubicarlos en la carpeta correcta. 
+Sin embargo, es necesario disponer en el repositorio, en el momento de la ejecución de esa línea, de una carpeta **coverage** que incluya el cubrimiento de código generado con ***nyc*** en un formato **lcov**. Para cubrir estas necesidades se ejecutan otras Actions previas a esa que permiten generar los datos en formato **lcov** y ubicarlos en la carpeta correcta.
 
 Otra necesidad latente en el repositorio son los errores señalados por ESLint en la inclusión de módulos de TypeScript mediante imports. Estos errores son imposibles de resolver sin manipular la configuración, ya que colisionan dos reglas relacionadas con los import no resueltos (por no completar todo el path) y con la inclusión de extensión de archivo (no necesaria). Se resuelve incluyendo algunos plugin de extensión de la herramienta, el fichero de configuración se extiende para incluir:
 
@@ -242,7 +242,7 @@ Estos últimos aspectos pretenden justificar los principios SOLID de Single resp
                           └─────────────┘
 ```
 
-En este caso, a demás de la herencia de clases, las clases de colecciones son genéricas por lo que las interfaces también deben serlo. Para controlar los tipos de datos y operaciones que se incluyen en las clases se usa la restricción de la variable de tipo genérico. Haciendo uso de la sentencia `<T extends StreamableItem>` en la clase StreamableCollection se limita a elementos de este tipo la instancia de esta clase. 
+En este caso, a demás de la herencia de clases, las clases de colecciones son genéricas por lo que las interfaces también deben serlo. Para controlar los tipos de datos y operaciones que se incluyen en las clases se usa la restricción de la variable de tipo genérico. Haciendo uso de la sentencia `<T extends StreamableItem>` en la clase StreamableCollection se limita a elementos de este tipo la instancia de esta clase.
 
 Es en cada una de las implementaciones concretas de la clase StreamableCollection (Series, Movies y Documentaries) donde se especifica el tipo de dato al extender la clase padre, por ejemplo, la cabecera de la clase **Series**:
 
