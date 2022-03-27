@@ -1,6 +1,6 @@
 import * as Arithmeticable from './arithmeticable.interface';  // eslint-disable-line
 
-type ComplexNum = {
+export type ComplexNum = {
   real: number,
   img: number,
 };
