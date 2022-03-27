@@ -31,10 +31,9 @@
     - [El cifrado indescifrable](#el-cifrado-indescifrable)
     - [Jerarquía de clases - ejercicio 3](#jerarquía-de-clases---ejercicio-3)
     - [principios SOLID cubiertos](#principios-solid-cubiertos)
-    - [clase Alphabet](#clase-alphabet)
-    - [clase Key](#clase-key)
-    - [clase Cypher](#clase-cypher)
-    - [clase Cypher Input](#clase-cypher-input)
+    - [Sistema de desplazamiento](#sistema-de-desplazamiento)
+    - [Mapeo del valor de la clave](#mapeo-del-valor-de-la-clave)
+    - [Texto cifrado](#texto-cifrado)
   - [Conclusiones](#conclusiones)
   - [Referencias](#referencias)
   - [Estructura del directorio](#estructura-del-directorio)
@@ -304,16 +303,85 @@ SOLID en su diseño.
 
 ### Jerarquía de clases - ejercicio 3
 
+En este ejericio no se ha diseñado una jerarquía de clases con herencia, sin embargo si que se han diseñado las clases de forma que cada una cumpla un propósito concreto.
+
+La clase alfabeto se ocupa de recoger todos los caracteres considerados dentro del encriptado y el texto, cualquier caracter fuera de este alfabeto es transparente a las operaciones de cifrado. Esto es representado por los métodos `value()` y `element()` que devuelven el valor o el elemento del alfabeto, estos son inconclusos para caracteres fuera del contexto.
+
+La clase clave se representa mediante la clase `Key`, que hace uso de un alfabeto para filtrar los caracteres incluidos en la clave, esta clave es capaz de inferir sus valores de desplazamiento individualmente y en forma de conjunto gracias al alfabeto que incluye.
+
+La clase de cifrado `Cypher` se ocupa de generar el texto cifrado a partir de un texto original que se indica en el constructor, también se pasan al constructor la clave y el alfabeto que usa el sistema de encriptación. Esta clase se ocupa exclusivamente de generar el texto cifrado, de mapear la clave y de calcular el desplazamiento total.
+
+Una última clase `CypherInput` se encarga de extender la clase `Cypher` para ampliar las funcionalidades de la original de modo que se construya el cifrado mediante peticiones por consola al usuario.
+
+```txt
+┌──────────┐
+│Alphabet  │
+└──────────┘
+┌──────────┐
+│Key       │
+│(Alphabet)│
+└──────────┘
+┌───────────┐
+│Cypher     │
+│(Key)      │
+│(Alphabet) │
+└───────────┘
+┌────────────┐
+│CypherInput │
+│(Cypher)    │
+└────────────┘
+
+```
+
 ### principios SOLID cubiertos
 
-### clase Alphabet
+Se trata de cumplir el principio de **Single responsibility** al separar las clases por su funcionalidad individual, al mismo tiempo y sin hacer uso de la herencia, se destaca que el principio **Open-Closed** está presente en la definición de la clase `CypherInput` como extensión de la clase `Cypher`.
 
-### clase Key
+Se definen las interfaces `CaesarOperations` y `CypherRequest` para definir las operaciones que envuelven el sistema de cifrado, el principio de **Interface segregation** está presente en la separación de estos dos conceptos para dar cabida a una versión más especializada y simple.
 
-### clase Cypher
+### Sistema de desplazamiento
 
-### clase Cypher Input
+El desplazamiento individual de cada caracter en el alfabeto se sirve de un método que devuelve el caracter desplazado. Este método recibe el caracter original y el caracter actual de la clave correspondiente. Si el caracter se encuentra en el alfabeto se devuelve el desplazamiento, es decir el elemento del alfabeto cuyo valor de posición original se suma al de la clave, mediante el operador **%** se puede restringir a la longitud del alfabeto, por lo que se selecciona un elemento que esté dentro de ese rango. En el caso de no ser un caracter presente en el alfabeto se devuelve undefined.
 
+```TypeScript
+shift(char: string, key: string): string | undefined {
+  return this.alphabet.value(char) === -1
+    ? undefined
+    : this.alphabet
+      .element((this.alphabet.value(char) + this.key.value(key) - 1)
+              % this.alphabet.toArray().length);
+}
+```
+
+### Mapeo del valor de la clave
+
+El mapeo de la clave se puede hacer de múltiples formas, pero para evitar estar contando elementos y/o creando segundas cadenas de texto donde se repite la clave **X** veces se implementa un método que hace uso de la capacidad de la clave para ser representada como Array.
+
+Una variable de iteración `i` describe la posición actual de la cadena de texto original que está siendo encriptada, pasando esa posición como la posición del elemento del array a extraer y operándola con el módulo de la longitud de la clave, se obtiene siempre una letra de dentro de esta clave, repitiendo la clave tantas veces como posiciones haya en la cadena de texto original.
+
+```TypeScript
+mapKey(i: number): string {
+  return this.key.toArray()[i % this.key.toString().length];
+}
+```
+
+### Texto cifrado
+
+El texto encriptado se computa recorriendo cada elemento del texto original y creando un nuevo array con los desplaamientos de cada caracter en función de la clave. Se hace uso de los métodos anteriormente descritos, `mapKey()` para saber qué valor de la clave pasar al `shift()` y este último para conocer el valor de texto a generar, que en caso de ser `undefined` devuelve el caracter de entrada.
+
+```TypeScript
+cypherText(): string {
+  return this.text
+    .split('')
+    /* eslint-disable */
+    .map((el, i) => this.shift(el, this.mapKey(i)) === undefined
+      ? el
+      : this.shift(el, this.mapKey(i)))
+    /* eslint-enable */
+    .join('')
+    .toUpperCase();
+}
+```
 
 ## Conclusiones
 
@@ -337,18 +405,33 @@ Por otro lado también se añade cierta dificultad al desarrollo cuando se exige
 
 ```txt
 P06/
-├───.github         |- Carpeta para las configuraciones de github
-│   └───workflows/  |- Carpeta con los workflows a ejecutar en las Github Actions
-├───dist/           |- Carpeta contenedora del código JavaScript traducido (autogenerada)
-├───doc/            |- Carpeta para la documentación generada por TypeDoc
-│   ├───assets/
-│   └───modules/
-├───node_modules/   |- Carpeta contenedora de los paquetes usados en la práctica (autogenerada)
-├───docs/           |- Carpeta para el informe de prácticas
-│   └───img/        |- Imágenes del informe de prácticas (divididas por secciones)
-│       └───tdd/
-├───src/            |- Carpeta contenedora del código fuente en TypeScript
-└───test/           |- Carpeta contenedora de los test unitarios
+|____.github/         (Github actions workflow files)
+| |____workflows/
+| | |____deploy.yml
+| | |____runtests.yml
+|____dist/            (Transpiled JavaScript code)
+|____doc/             (Autogenerated TypeDoc documentation files)
+|____docs/            (Assingment report folder)
+| |_____config.yml
+| |____README.md
+|____images/          (Pokemon text images folder)
+|____src/             (Source files for TypeScript code exercises)
+| |____pe103/
+| |____ejercicio-2/
+| |____ejercicio-1/
+| |____ejercicio-3/
+|____test/            (Test workbench folder)
+| |____pe103/
+| |____ejercicio-2/
+| |____ejercicio-1/
+| |____ejercicio-3/
+|____package.json
+|____.gitignore
+|____.mocharc.json
+|____.eslintrc.json
+|____typedoc.json
+|____tsconfig.json
+
 ```
 
 ## Comandos npm del repositorio
