@@ -23,7 +23,6 @@
     - [Jerarquía de clases - ejercicio 1](#jerarquía-de-clases---ejercicio-1)
     - [principios SOLID Single Responsibility y Open-Closed](#principios-solid-single-responsibility-y-open-closed)
     - [Función de efectividad](#función-de-efectividad)
-    - [Combates y Pokedex](#combates-y-pokedex)
   - [Ejercicio 2](#ejercicio-2)
     - [DSIFlix](#dsiflix)
     - [Jerarquía de clases - ejercicio 2](#jerarquía-de-clases---ejercicio-2)
@@ -143,11 +142,52 @@ Para extender el desarrollo anterior se pide:
 
 ### Jerarquía de clases - ejercicio 1
 
+La jerarquía de clases se ha planteado de forma que todo nuevo universo de jugadores cumpla las características de la clase abstracta fighter para poder instanciar cada luchador de cada universo con las mismas características y para poder hacer referencia en clases que usen muchos tipos de luchadores (como Pokedex o Combat) mediante el tipo `Fighter`. Por otro lado se incluyen clases específicas para la impresión de la Pokedex  y para la impresión de los contendientes de cada universo individualmente, ya que tienen tipos distintos de impresión, la impresión de los contendientes también es heredada de una clase abstracta de impresión de contendientes en la cual se incluye un método abstracto `print()` que es implementado desde la interfaz `FighterPrint`.
+
+```txt
+             ┌───────┐
+           ┌─│Marvel │
+┌────────┐ │ └───────┘
+│Fighter │─┼─ ···
+└────────┘ │ ┌───────┐
+           └─│Pokemon│
+             └───────┘
+             
+                   ┌──────────────┐
+                 ┌─│MarvelPrinter │
+┌──────────────┐ │ └──────────────┘
+│FighterPrinter│─┼─ ···
+│(Fighter)     │ │
+└──────────────┘ │ ┌──────────────┐
+                 └─│PokemonPirnter│
+                   └──────────────┘
+┌──────────┐
+│Combat    │
+│(Fighter) │
+└──────────┘
+┌──────────┐
+│Pokedex   │
+│(Fighter) │
+└──────────┘
+
+┌───────────────┐
+│PokedexPrinter │
+│(Pokedex)      │
+└───────────────┘
+
+```
+
 ### principios SOLID Single Responsibility y Open-Closed
+
+Para cumplir el principio de Single Responsibility se han separado las clases por su objetivo individual, es decir, la Pokedex sólo gestiona la inclusión y eliminación de luchadores, su búsqueda o el conocimiento de su propio estado; se traslada la impresión de la misma a una clase individual que se encarga de esta tarea. Lo mismo aplica para las implementaciones concretas de cada universo de luchadores. La clase combat se encarga exclusivamente de iniciar el combate entre dos luchadores, se trasladan las acciones de cada luchador como atacar, defenderse y conocer su efectividad a cada luchador individualmente, ya que se supone que es una acción que cada individuo comete.
+
+De igual manera, la herencia entre clases también refleja el principio Open-Closed, las clases se han diseñado ampliando el concepto de Fighter en cada uno de sus universos cada vez que se requiere modificar un aspecto concreto.
 
 ### Función de efectividad
 
-### Combates y Pokedex
+La función de efectividad se ha modificado para ser transparente entre combatientes de distintos universos ya que esta clasificación es extremadamente subjetiva y sujeta a múltiples debates que sólo se pueden basar en la percepción individual de qué universo es más poderoso. Sin embargo, dentro de cada uno de los universos se debe disponer de algún sistema de clasificación jerárquica que permita conocer la superioridad entre unos individuos y otro. Esta clasificación puede ser circular como la de los Pokemon o lineal como la de Marvel.
+
+Ambas funciones de efectiviad devuelven un multiplicador de potencia que contempla los valores 1, 0.5 y 2 en función de qué tan efectiva sea. Este multiplicador se computa en un switch que compara el valor del tipo del atacante para seleccionar una opción en la cual se devueelve un resultado que depende del tipo del oponente.
 
 ## Ejercicio 2
 
