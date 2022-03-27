@@ -23,13 +23,10 @@
     - [Jerarquía de clases - ejercicio 1](#jerarquía-de-clases---ejercicio-1)
     - [principios SOLID Single Responsibility y Open-Closed](#principios-solid-single-responsibility-y-open-closed)
     - [Función de efectividad](#función-de-efectividad)
-    - [Combates y Pokedex](#combates-y-pokedex)
   - [Ejercicio 2](#ejercicio-2)
     - [DSIFlix](#dsiflix)
     - [Jerarquía de clases - ejercicio 2](#jerarquía-de-clases---ejercicio-2)
     - [principio SOLID de Interface segregation](#principio-solid-de-interface-segregation)
-    - [Clase Streamable collection](#clase-streamable-collection)
-    - [Métodos de búsqueda](#métodos-de-búsqueda)
   - [Ejercicio 3](#ejercicio-3)
     - [El cifrado indescifrable](#el-cifrado-indescifrable)
     - [Jerarquía de clases - ejercicio 3](#jerarquía-de-clases---ejercicio-3)
@@ -143,11 +140,52 @@ Para extender el desarrollo anterior se pide:
 
 ### Jerarquía de clases - ejercicio 1
 
+La jerarquía de clases se ha planteado de forma que todo nuevo universo de jugadores cumpla las características de la clase abstracta fighter para poder instanciar cada luchador de cada universo con las mismas características y para poder hacer referencia en clases que usen muchos tipos de luchadores (como Pokedex o Combat) mediante el tipo `Fighter`. Por otro lado se incluyen clases específicas para la impresión de la Pokedex  y para la impresión de los contendientes de cada universo individualmente, ya que tienen tipos distintos de impresión, la impresión de los contendientes también es heredada de una clase abstracta de impresión de contendientes en la cual se incluye un método abstracto `print()` que es implementado desde la interfaz `FighterPrint`.
+
+```txt
+             ┌───────┐
+           ┌─│Marvel │
+┌────────┐ │ └───────┘
+│Fighter │─┼─ ···
+└────────┘ │ ┌───────┐
+           └─│Pokemon│
+             └───────┘
+             
+                   ┌──────────────┐
+                 ┌─│MarvelPrinter │
+┌──────────────┐ │ └──────────────┘
+│FighterPrinter│─┼─ ···
+│(Fighter)     │ │
+└──────────────┘ │ ┌──────────────┐
+                 └─│PokemonPirnter│
+                   └──────────────┘
+┌──────────┐
+│Combat    │
+│(Fighter) │
+└──────────┘
+┌──────────┐
+│Pokedex   │
+│(Fighter) │
+└──────────┘
+
+┌───────────────┐
+│PokedexPrinter │
+│(Pokedex)      │
+└───────────────┘
+
+```
+
 ### principios SOLID Single Responsibility y Open-Closed
+
+Para cumplir el principio de Single Responsibility se han separado las clases por su objetivo individual, es decir, la Pokedex sólo gestiona la inclusión y eliminación de luchadores, su búsqueda o el conocimiento de su propio estado; se traslada la impresión de la misma a una clase individual que se encarga de esta tarea. Lo mismo aplica para las implementaciones concretas de cada universo de luchadores. La clase combat se encarga exclusivamente de iniciar el combate entre dos luchadores, se trasladan las acciones de cada luchador como atacar, defenderse y conocer su efectividad a cada luchador individualmente, ya que se supone que es una acción que cada individuo comete.
+
+De igual manera, la herencia entre clases también refleja el principio Open-Closed, las clases se han diseñado ampliando el concepto de Fighter en cada uno de sus universos cada vez que se requiere modificar un aspecto concreto.
 
 ### Función de efectividad
 
-### Combates y Pokedex
+La función de efectividad se ha modificado para ser transparente entre combatientes de distintos universos ya que esta clasificación es extremadamente subjetiva y sujeta a múltiples debates que sólo se pueden basar en la percepción individual de qué universo es más poderoso. Sin embargo, dentro de cada uno de los universos se debe disponer de algún sistema de clasificación jerárquica que permita conocer la superioridad entre unos individuos y otro. Esta clasificación puede ser circular como la de los Pokemon o lineal como la de Marvel.
+
+Ambas funciones de efectiviad devuelven un multiplicador de potencia que contempla los valores 1, 0.5 y 2 en función de qué tan efectiva sea. Este multiplicador se computa en un switch que compara el valor del tipo del atacante para seleccionar una opción en la cual se devueelve un resultado que depende del tipo del oponente.
 
 ## Ejercicio 2
 
@@ -180,11 +218,58 @@ A través del catálogo de dicha plataforma se puede acceder a películas, serie
 
 ### Jerarquía de clases - ejercicio 2
 
+Surgen dos nexos principales de jerarquías, uno de ellos describe los elementos que incluirán cada una de las colecciones disponibles en el sistma. Las implementaciones concretas de los elementos de las colecciones se implementan extendiendo una clase abstracta que recoge las propiedades y métodos comunes al resto de los elementos (nombre, duración, valoración, etc.). Las implementaciones concretas inlcuyen aspectos que son relativos sólo a ese tipo de contenido, como los capitulos de una serie o el método `toString()` que es abstracto en la clase padre para que cada elemento lo implemente en función del tipo de contenido que representa.
+
+Estos últimos aspectos pretenden justificar los principios SOLID de Single responsibility y Open-closed.
+
+```txt
+                    ┌──────────┐
+                  ┌─│MovieItem │
+                  │ └──────────┘
+┌───────────────┐ │ ┌──────────┐
+│StreamableItem │─┼─│SeriesItem│
+└───────────────┘ │ └──────────┘
+                  │ ┌───────────────┐
+                  └─│DocumentaryItem│
+                    └───────────────┘
+                          ┌──────┐
+                        ┌─│Movies│
+                        │ └──────┘
+┌─────────────────────┐ │ ┌──────┐
+│StreamableCollection │─┼─│Series│
+└─────────────────────┘ │ └──────┘
+                        │ ┌─────────────┐
+                        └─│Documentaries│
+                          └─────────────┘
+```
+
+En este caso, a demás de la herencia de clases, las clases de colecciones son genéricas por lo que las interfaces también deben serlo. Para controlar los tipos de datos y operaciones que se incluyen en las clases se usa la restricción de la variable de tipo genérico. Haciendo uso de la sentencia `<T extends StreamableItem>` en la clase StreamableCollection se limita a elementos de este tipo la instancia de esta clase. 
+
+Es en cada una de las implementaciones concretas de la clase StreamableCollection (Series, Movies y Documentaries) donde se especifica el tipo de dato al extender la clase padre, por ejemplo, la cabecera de la clase **Series**:
+
+```TypeScript
+
+export class Series extends StreamableCollection<SeriesItem> 
+                    implements SeriesSearch<SeriesItem> {
+                      · · ·
+}
+```
+
+De esta manera, al instanciar una clase Series lo que se hace es instanciar una clase StreamableCollection concretando el tipo de dato, cosa que ocurre para las otras dos colecciones también.
+
 ### principio SOLID de Interface segregation
 
-### Clase Streamable collection
+Se propone en el enunciado que se incluya una interfaz Streamable que defina las propiedades y métodos de búsqueda, sin embargo el principio de interface segregation sugiere que una interfaz se ocupe de describir un aspecto concreto. Si la complejidad de una interfaz escala demasiado siempre será mejor separarla en múltiples interfaces. Por eso, en este ejercicio se describen las interfaces:
 
-### Métodos de búsqueda
+- StreamableProperties: **Define los atributos que debe ser capaz de describir una clase StreamableCollection**
+
+- StreamableActions: **Define los métodos con los que debe contar una clase StreamableCollection**
+
+- StreamableSearch: **Define exclusivamente los métodos de búsqueda con los que debe contar una clase StreamableCollection**
+
+- StreamablePrint: **Define el método print que obliga a una clase a ser una clase de impresión por pantalla de colecciones de StreamableItem**
+
+- SeriesSearch: **Define exclusivamente los métodos de búsqueda con los que debe contar una clase Series**
 
 ## Ejercicio 3
 
