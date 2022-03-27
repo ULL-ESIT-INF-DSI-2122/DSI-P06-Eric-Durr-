@@ -2,26 +2,6 @@ import { Fighter } from './fighter.class';
 import { FighterActions } from './fighter.interfaces';
 import { Measures, PokemonType, Stats } from './fighter.types';
 
-/**
- * # Pokemon Class | Primary child class | Extends Fighter
- *
- * ## Features
- *
- * - name | String with pokemon name
- * - type | PokemonType (contains pokemon type)
- * - shape | Object of numbers (defines the pokemon height and weight in that order)
- * - stats | Object of numbers
- * (defines the pokemon health points (hp), attack (atk), defense
- *  (def)  and speed (spd) in that order)
- *
- * ## Fighter Methods
- *
- * - getName(void) | Returns String with pokemon name
- * - getShape(void) | Returns Object of number with pokemon shape
- * - getType(void) | Returns String with pokemon type
- * - getStats(void) | Returns Object of number with pokemon stats
- * - setHp(number) | Sets pokemon HP to value in parameter
- */
 export class Pokemon
   extends Fighter
   implements FighterActions {

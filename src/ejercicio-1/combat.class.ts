@@ -1,25 +1,6 @@
 import { Fighter } from './fighter.class';
-import { FighterPrint } from './fighter.interfaces'; // eslint-disable-line
+import { FighterPrint } from './fighter.interfaces';
 
-/**
- * # Combat Class | Primary parent class
- *
- * ## Implements
- *
- * - FighterPrint
- * - PokemonActions
- *
- * ## Features
- *
- * - firstFighter | Pokemon object (defines a Pokemon and it's features)
- * - secondFighter | Pokemon object (defines a Pokemon and it's features)
- *
- * ## Methods
- * - print(void) | Prints current combat status
- * - attack(Pokemon) | Used to attack the pokemon in parameter
- * - effectiveness(Pokemon, Pokemon) | measures effectiveness between pokemon types
- * - start(void) | Starts a fight between two pokemons
- */
 export class Combat implements FighterPrint {
   private firstFighter: Fighter;
 
